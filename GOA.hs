@@ -1,5 +1,5 @@
-
-{-# OPTIONS -fglasgow-exts #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# OPTIONS -Wall #-}
 
 module GOA (
     module Prelude,
@@ -19,7 +19,7 @@ import System.IO.Unsafe
 import System.Directory
 import Data.IORef
 import Control.Monad
-import qualified Control.Exception as C 
+import qualified Control.Exception as E
 import System.FilePath.Posix (pathSeparator)
 
 -- |
@@ -77,7 +77,7 @@ state = unsafePerformIO $ newIORef Nothing
 -- Fork lambdabot on start up
 --
 wakeup :: IO ()
-wakeup = do wakeup'; return ()
+wakeup = do _ <- wakeup'; return ()
 
 -- | Bool indicates success/failure
 wakeup' :: IO Bool
@@ -104,10 +104,10 @@ forkLambdabot = withLambdabot $ do
     if not b
         then do putStrLn $ "No lambdabot binary found in: " ++ home
                 return Nothing
-        else C.catch
+        else E.catch
                 (do x <- runInteractiveProcess "./lambdabot" args Nothing Nothing
                     return (Just x))
-                (\e -> do
+                (\(e :: E.IOException) -> do
                     putStrLn $ "Unable to start lambdabot: " ++ show e
                     return Nothing)
 
@@ -131,9 +131,10 @@ query command args
                                          -- responds, thus hanging GoA
     | otherwise = do
     m <- readIORef state
-    C.handle
-        (\e -> do writeIORef state Nothing -- blank old handles if we fail
-                  return ["Unable to run lambdabot: " ++ show e])
+    E.handle
+        (\(e :: E.IOException) ->
+          do writeIORef state Nothing -- blank old handles if we fail
+             return ["Unable to run lambdabot: " ++ show e])
         (case m of
             Nothing           -> do
               -- maybe we can start the process automatically
