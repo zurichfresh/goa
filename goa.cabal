@@ -1,8 +1,8 @@
 Name:                goa
-Version:             3.2
+Version:             3.3
 License:             BSD3
 License-File:        LICENSE
-Author:              Paolo Martini
+Author:              Paolo Martini, Philip K.F. Hölzenspies
 Maintainer:          Chris Done <chrisdone@gmail.com>
 Synopsis:            GHCi on Acid
 Description:         Offers an interface to be able to call Lambdabot commands within GHCi. Now works with recent lambdabots.

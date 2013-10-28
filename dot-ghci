@@ -1,6 +1,8 @@
-:m - Prelude
+:set -XNoImplicitPrelude
 :m + GOA
 setLambdabotHome "/home/dons/lambdabot"
+-- Alternatively, for POSIX-systems providing "which", you can use:
+-- findPosixLambdabot >>= setLambdabotHome
 wakeup
 :def bs        lambdabot "botsnack"
 :def pl        lambdabot "pl"

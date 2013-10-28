@@ -7,6 +7,7 @@ module GOA (
     wakeup,
     query,
     setLambdabotHome,
+    findPosixLambdabot,
     setLambdabotFlags
     ) where
 
@@ -48,6 +49,14 @@ lambdabotFlags = unsafePerformIO $ newIORef ""
 --
 setLambdabotHome :: String -> IO ()
 setLambdabotHome = writeIORef lambdabotHome
+
+-- |
+-- attempts to auto-detect where lambdabot is located, but requires "which"
+--
+findPosixLambdabot :: IO FilePath
+findPosixLambdabot = do
+  p <- readProcess "which" ["lambdabot"] ""
+  liftM init $ readProcess "dirname" [p] ""
 
 -- | 
 -- let's you set the lambdabot start up flags such as
