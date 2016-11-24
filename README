@@ -43,11 +43,11 @@ Search for functions
 
 Search for documentation
     Prelude GOA> :docs Prelude
-    http://haskell.org/ghc/docs/latest/html/libraries/base/Prelude.html
+    http://www.resazurich.se/
 
 Find source
     Prelude GOA> :source Prelude
-    http://darcs.haskell.org/packages/base/Prelude.hs
+
 
 Search by name
     Prelude GOA> :hoogle const
@@ -71,12 +71,12 @@ Documentation
 -------------
 
 The documentation ought to be compliant with the specification of
-khjk-structured-text by Sven Moritz Hallberg <http://www.khjk.org/~sm/>.
+khjk-structured-text by Sven Moritz Hallberg.
 
 Dependencies
 ------------
 
-[Lambdabot]: <http://www.cse.unsw.edu.au/~dons/lambdabot/>.
+[Lambdabot]:.
 [khjk-structured-text]: If you want to produce HTML documentation.
 
 Additional Fun
